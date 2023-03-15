@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-            <div class="container">
-                <div class="row">
-                    <div class="col text-center">
-
-                        <div class="row">
-                            @foreach ($comics as $comic)
-                            <div class="card text-center">
-                                <div class="card-body">
-                                    <h1 class="card-title">{{ $comic->title }}</h1>
     
-                                </div>
-                                <a href="{{ route("comics.show", $comic->id) }}" class="btn btn-primary">
-                                    Vedi dettagli
-                                </a>
-                            
-                            </div>
-                                
-                            @endforeach
-                        </div>
+            <div class="container">
+                @foreach ($comics as $comic)
+            <table>
+                <tr>
+                    <th scope="row"{{ $comic->id }}></th>
+                    <td>{{ $comic->title }}</td>
+                    <td>{{ $comic->price }}</td>
+                    <td>{{ $comic->series }}</td>
+                    <td>{{ $comic->sale_date }}</td>
+                    <td>{{ $comic->type }}</td>
+                    <td>
+                        <a href="{{ route("comics.show", $comic->id) }}" class="btn btn-primary">Vedi</a>
+                        <a href="{{ route("comics.show", $comic->id) }}" class="btn btn-warning">Aggiorna</a>
+                    <form action="{{ route ("comics.destroy", $comic->id) }}" method="POST">
+                        @csrf
 
-
-
-                    </div>
-                </div>
+                        @method("DELETE")
+                        <input type="submit" value="Cancella">
+                    </form>
+                    </td>
+                </tr>
+                @endforeach
+            </table>
             </div>
 @endsection
